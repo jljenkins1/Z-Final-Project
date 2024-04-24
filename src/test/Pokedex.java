@@ -1,8 +1,7 @@
 package test;
 
 public class Pokedex {
-
-	public Pokedex() {
+	
 		private static Pokedex instance;
 		private List<Pokemon> pokemons;
 		
