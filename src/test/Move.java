@@ -18,7 +18,7 @@ public class Move {
         this.isPhysical = isPhysical;
         this.speed = speed;
     }
-
+//getters and setters
     public String getName() {
         return name;
     }
@@ -33,7 +33,7 @@ public class Move {
     	return power;
     }
 
-
+// factory to create movesets for each pokemon based on type
     public static class MoveFactory {
         public static List<Move> getMovesForType(PType type) {
             List<Move> moves = new ArrayList<>();
@@ -144,6 +144,7 @@ public class Move {
             return moves;
         }
     }
+    //creates a multipler for damage based on the type of the move and the type of the target
     public double getEffectivenessMultiplier(PType attackingType, PType defendingType) {
         // Define effectiveness multipliers
         double superEffectiveMultiplier = 2;
