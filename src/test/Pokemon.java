@@ -1,11 +1,14 @@
 package test;
 import com.google.gson.Gson;
+import java.util.stream.*;
 import com.google.gson.reflect.TypeToken;
 
 import com.google.gson.annotations.SerializedName;
 
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -93,25 +96,19 @@ public class Pokemon {
     public boolean hasFainted() {
         return currentHP <= 0;
     }
-
-    private static String filePath;
-
-    public Pokemon(String filePath) {
-        this.filePath = filePath;
-        // Load Pokemon data from the JSON file using the provided file path
-    }
-
+//stream/ .json reader, works when compiled into a .jar file
     public static Pokemon loadPokemonFromJson(String pokemonName) {
         try {
             Gson gson = new Gson();
-            FileReader reader = new FileReader(filePath);
+            InputStream inputStream = Pokedex.class.getClassLoader().getResourceAsStream("test/pokemon.json");
+            InputStreamReader reader = new InputStreamReader(inputStream);
             Type pokemonListType = new TypeToken<List<Pokemon>>() {}.getType();
             List<Pokemon> pokemons = gson.fromJson(reader, pokemonListType);
             if (pokemons != null) {
                 for (Pokemon pokemon : pokemons) {
                     if (pokemon.getName().equalsIgnoreCase(pokemonName)) {
-                    	pokemon.setPType(PType.valueOf(pokemon.pType.name().toUpperCase()));
-                    	pokemon.setCurrentHP(pokemon.getMaxHP());
+                        pokemon.setPType(PType.valueOf(pokemon.pType.name().toUpperCase()));
+                        pokemon.setCurrentHP(pokemon.getMaxHP());
                         return pokemon;
                     }
                 }
