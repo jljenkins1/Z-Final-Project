@@ -2,8 +2,6 @@ package test;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import test.Move.MoveFactory;
-
 import com.google.gson.annotations.SerializedName;
 
 
@@ -39,7 +37,7 @@ public class Pokemon {
         this.moves = Move.MoveFactory.getMovesForType(pType);
         this.owner = owner;
     }
-
+// getters and setters
     public String getName() {
         return name;
     }
@@ -96,7 +94,12 @@ public class Pokemon {
         return currentHP <= 0;
     }
 
-    private static final String filePath = "src/test/pokemon.json";
+    private static String filePath;
+
+    public Pokemon(String filePath) {
+        this.filePath = filePath;
+        // Load Pokemon data from the JSON file using the provided file path
+    }
 
     public static Pokemon loadPokemonFromJson(String pokemonName) {
         try {
