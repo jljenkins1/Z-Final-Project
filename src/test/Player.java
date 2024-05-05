@@ -24,7 +24,7 @@ public class Player {
             }
         }
     }
-            
+            //getters and setters
 
     public String getPlayerName() {
         return playerName;
@@ -49,12 +49,13 @@ public class Player {
     public void setActivePokemon(Pokemon activePokemon) {
         this.activePokemon = activePokemon;
     }
+    //user inputted names for each player
     private String getPlayerNameFromUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter player name: ");
         return scanner.nextLine();
     }
-    
+    //allow users to type in names of pokemon to add to their roster of six
 
     private void addPokemonToTeamFromUserInput() {
         Scanner scanner = new Scanner(System.in);
@@ -70,6 +71,7 @@ public class Player {
             	}
                 break;
             } else if (input.equalsIgnoreCase("display")) {
+            	//this allows users to see all the pokemon that are availible and their stats.
                 Pokedex.displayAllPokemon();
             } else {
                 Pokemon pokemon = Pokemon.loadPokemonFromJson(input);
@@ -88,7 +90,7 @@ public class Player {
     public void removePokemon(Pokemon pokemon) {
         team.remove(pokemon);
     }
-
+    //method that prints all stats of a team including name type and other stats
     public void printTeamDetails() {
         System.out.println("Player: " + playerName);
         System.out.println("Team: ");
