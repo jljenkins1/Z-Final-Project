@@ -1,19 +1,20 @@
 package test;
 
 public class main {
+    public static void main(String[] args) {
+        // Create player one
+        Player playerOne = new Player();
+        System.out.println("Player One's team:");
+        playerOne.printTeamDetails();
 
-	public static void main(String[] args) {
-		Pokedex pokedex = Pokedex.getInstance();
-		Player playerOne = new Player("Josh");
-		Player playerTwo = new Player("Ethan");
-		
-		playerOne.addPokemonsToTeam(pokedex.getAllPokemon().get(0));
-		playerTwo.addPokemonsToTeam(pokedex.getAllPokemon().get(1));
-		
-		Battle battle = new Battle(playerOne, playerTwo);
-		battle.startBattle(); //Start the battle
-		
+        // Create player two
+        Player playerTwo = new Player();
+        System.out.println("Player Two's team:");
+        playerTwo.printTeamDetails();
 
-	}
+        // Initiate a battle between player one and player two
+        Battle battle = new Battle(playerOne, playerTwo);
+        battle.startBattle();
 
+    }
 }
