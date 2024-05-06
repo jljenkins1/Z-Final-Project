@@ -118,6 +118,7 @@ public class Battle {
         List<Move> p2Moves = p2ActivePokemon.getMoves();
         System.out.println("Choose a move for " + p2ActivePokemon.getName() + ":");
         for (int i = 0; i < p2Moves.size(); i++) {
+       	 	TimeUnit.SECONDS.sleep(1);
             System.out.println((i + 1) + ". " + p2Moves.get(i).getName());
         }
         int p2MoveChoice = getPlayerChoice();
