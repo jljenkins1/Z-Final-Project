@@ -113,7 +113,7 @@ public class Pokemon {
                     }
                 }
             }
-            throw new IllegalArgumentException("No Pokémon found with the name: " + pokemonName);
+            throw new IllegalArgumentException("No pokemon found with the name: " + pokemonName);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
