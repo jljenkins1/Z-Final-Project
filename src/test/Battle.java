@@ -1,4 +1,5 @@
 package test;
+import java.util.concurrent.TimeUnit;
 
 import java.util.Scanner;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Battle {
         
     }
 
-    public void startBattle() {
+    public void startBattle() throws InterruptedException {
         selectActivePokemon(playerOne);
         selectActivePokemon(playerTwo);
         // Logic to conduct the battle
@@ -49,7 +50,7 @@ public class Battle {
         }
     }
 
-    private void selectActivePokemon(Player player) {
+    private void selectActivePokemon(Player player) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println(player.getPlayerName() + ", choose your active Pokémon:");
         List<Pokemon> team = player.getTeam();
@@ -57,12 +58,14 @@ public class Battle {
             System.out.println((i + 1) + ". " + team.get(i).getName());
         }
         System.out.print("Enter the number corresponding to your choice: ");
+        TimeUnit.SECONDS.sleep(1);
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
         if (choice >= 1 && choice <= team.size()) {
             Pokemon activePokemon = team.get(choice - 1);
             activePokemon.setOwner(player); // Set the owner here
             player.setActivePokemon(activePokemon);
+            TimeUnit.SECONDS.sleep(1);
             System.out.println(player.getPlayerName() + " selected " + activePokemon.getName() + " as the active Pokémon.");
         } else {
             System.out.println("Invalid choice. Please try again.");
@@ -71,12 +74,15 @@ public class Battle {
         }
 
     }
-    private void takeTurn(Player currentPlayer, Player opponentPlayer) {
+    private void takeTurn(Player currentPlayer, Player opponentPlayer) throws InterruptedException {
         System.out.println(currentPlayer.getPlayerName() + "'s turn:");
         currentPlayer.printTeamDetails();
         System.out.println("Choose an option:");
+        TimeUnit.SECONDS.sleep(1);
         System.out.println("1. Attack");
+        TimeUnit.SECONDS.sleep(1);
         System.out.println("2. Switch Pokémon");
+        
         int choice = getPlayerChoice();
 
         switch (choice) {
@@ -88,17 +94,20 @@ public class Battle {
             	selectActivePokemon(currentPlayer);
                 break;
             default:
+            	 TimeUnit.SECONDS.sleep(3);
                 System.out.println("Invalid choice. Please choose again.");
                 takeTurn(currentPlayer, opponentPlayer); // Prompt again for a valid choice
                 break;
         }
     }
-    private void chooseAttack(Player playerOne, Player playerTwo) {
+    private void chooseAttack(Player playerOne, Player playerTwo) throws InterruptedException {
         // Get player one's move choice
         Pokemon p1ActivePokemon = playerOne.getActivePokemon();
         List<Move> p1Moves = p1ActivePokemon.getMoves();
         System.out.println("Choose a move for " + p1ActivePokemon.getName() + ":");
+        TimeUnit.SECONDS.sleep(2);
         for (int i = 0; i < p1Moves.size(); i++) {
+        	 TimeUnit.SECONDS.sleep(1);
             System.out.println((i + 1) + ". " + p1Moves.get(i).getName());
         }
         int p1MoveChoice = getPlayerChoice();
@@ -136,7 +145,7 @@ public class Battle {
 
 
     
-    private void applyDamage(Pokemon attacker, Move move, Pokemon defender) {
+    private void applyDamage(Pokemon attacker, Move move, Pokemon defender) throws InterruptedException {
         // Calculate the effectiveness multiplier
         double effectivenessMultiplier = move.getEffectivenessMultiplier(attacker.getPType(), defender.getPType());
         if (attacker.getCurrentHP() <= 0) {
@@ -157,7 +166,9 @@ public class Battle {
 
         // Output the damage dealt
         System.out.println(attacker.getName() + " used " + move.getName() + "!");
+        TimeUnit.SECONDS.sleep(2);
         System.out.println("It dealt " + damage + " damage to " + defender.getName() + "!");
+        TimeUnit.SECONDS.sleep(2);
 
         // Check if the opponent's Pokémon has fainted
         if (defender.getCurrentHP() <= 0) {
@@ -169,15 +180,16 @@ public class Battle {
                 System.out.println("Selecting a new active Pokémon for " + owner.getPlayerName() + "...");
                 selectActivePokemon(owner);
             } else {
-                System.out.println(owner.getPlayerName() + " has no remaining Pokémon. They lose the battle!");
-                // Implement logic to end the battle or declare the other player as the winner
+                // logic to end the battle or declare the other player as the winner
                 if(playerOne.getTeam().isEmpty()){
                     System.out.println(playerOne.getPlayerName() + " has no remaining Pokémon. " + playerTwo.getPlayerName() + " wins the battle!");
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println("Good Game!");
                     isOver = true;
                     return;
                 }else if (playerTwo.getTeam().isEmpty()) {
                     System.out.println(playerTwo.getPlayerName() + " has no remaining Pokémon. " + playerOne.getPlayerName() + " wins the battle!");
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println("Good Game!");
                     isOver = true;
                     return;
@@ -186,7 +198,7 @@ public class Battle {
             }
             return;
             
-            // Implement logic to switch to the next Pokémon or end the battle if all Pokémon have fainted
+          
         }
     }
  
